@@ -53,10 +53,11 @@ int selectCommand(std::string _text, std::string options[], int arrSize) {
 
 	while (!choice) {
 		std::cout << _text << std::endl;
-		for (int i = 0; i < arrSize; i++) {
+		for (int i = 0; i < arrSize; i++) {	//reset arrows to blanks
 			Menu[i][0] = " ";
 			Menu[i][2] = " ";
 		}
+		//add arrows around current item
 		Menu[n][0] = '>';
 		Menu[n][2] = '<';
 		for (int i = 0; i < arrSize; i++) {
@@ -70,7 +71,7 @@ int selectCommand(std::string _text, std::string options[], int arrSize) {
 		switch (cursor) {
 		case KEY_UP:
 		case 'w':
-			if (n == 0) {  //up
+			if (n == 0) {  //already at top
 				n = arrSize - 1;
 			}
 			else {
@@ -80,7 +81,7 @@ int selectCommand(std::string _text, std::string options[], int arrSize) {
 
 		case KEY_DOWN:
 		case 's':
-			if (n == arrSize - 1) {   //down
+			if (n == arrSize - 1) {   //already at bottom
 				n = 0;
 			}
 			else {
