@@ -36,33 +36,33 @@ int checkIntInput(int minValue, int maxValue) {
 	return userInput; //return input when coniditons are met
 }
 
-int selectCommand(std::string _text, std::string options[], int arrSize) {
+int selectCommand(std::string _text, std::string options[], int _arrSize) {
 	char cursor = '0';
 	int n = 0;
 	bool choice = 0;
 
-	//allocate 2D array
-	std::string** Menu = new std::string * [arrSize];
-	for (int i = 0; i < arrSize; i++)
-		Menu[i] = new std::string[3];
-
+	//dynamically allocate 2D array
+	std::string** menu = new std::string * [_arrSize];	//double pointer points to new array of _arrSize length
+	for (int i = 0; i < arrSize; i++) {
+		menu[i] = new std::string[3];					//each element in the array points to an array containing 3 strings
+	}
 	// assign text values into menu
 	for (int i = 0; i < arrSize; i++) {
-		Menu[i][1] = options[i];
+		menu[i][1] = options[i];
 	}
 
 	while (!choice) {
 		std::cout << _text << std::endl;
 		for (int i = 0; i < arrSize; i++) {	//reset arrows to blanks
-			Menu[i][0] = " ";
-			Menu[i][2] = " ";
+			menu[i][0] = " ";
+			menu[i][2] = " ";
 		}
 		//add arrows around current item
-		Menu[n][0] = '>';
-		Menu[n][2] = '<';
+		menu[n][0] = '>';
+		menu[n][2] = '<';
 		for (int i = 0; i < arrSize; i++) {
 			for (int j = 0; j < 3; j++) {
-				std::cout << Menu[i][j];
+				std::cout << menu[i][j];
 			}
 			std::cout << std::endl;
 		}
@@ -99,8 +99,8 @@ int selectCommand(std::string _text, std::string options[], int arrSize) {
 
 	//deallocate array
 	for (int i = 0; i < arrSize; i++)
-		delete[] Menu[i];
-	delete[] Menu;
+		delete[] menu[i];
+	delete[] menu;
 
 	return n;
 }
