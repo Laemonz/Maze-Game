@@ -43,24 +43,24 @@ int selectCommand(std::string _text, std::string options[], int _arrSize) {
 
 	//dynamically allocate 2D array
 	std::string** menu = new std::string * [_arrSize];	//double pointer points to new array of _arrSize length
-	for (int i = 0; i < arrSize; i++) {
+	for (int i = 0; i < _arrSize; i++) {
 		menu[i] = new std::string[3];					//each element in the array points to an array containing 3 strings
 	}
 	// assign text values into menu
-	for (int i = 0; i < arrSize; i++) {
+	for (int i = 0; i < _arrSize; i++) {
 		menu[i][1] = options[i];
 	}
 
 	while (!choice) {
 		std::cout << _text << std::endl;
-		for (int i = 0; i < arrSize; i++) {	//reset arrows to blanks
+		for (int i = 0; i < _arrSize; i++) {	//reset arrows to blanks
 			menu[i][0] = " ";
 			menu[i][2] = " ";
 		}
 		//add arrows around current item
 		menu[n][0] = '>';
 		menu[n][2] = '<';
-		for (int i = 0; i < arrSize; i++) {
+		for (int i = 0; i < _arrSize; i++) {
 			for (int j = 0; j < 3; j++) {
 				std::cout << menu[i][j];
 			}
@@ -72,7 +72,7 @@ int selectCommand(std::string _text, std::string options[], int _arrSize) {
 		case KEY_UP:
 		case 'w':
 			if (n == 0) {  //already at top
-				n = arrSize - 1;
+				n = _arrSize - 1;
 			}
 			else {
 				n--;
@@ -81,7 +81,7 @@ int selectCommand(std::string _text, std::string options[], int _arrSize) {
 
 		case KEY_DOWN:
 		case 's':
-			if (n == arrSize - 1) {   //already at bottom
+			if (n == _arrSize - 1) {   //already at bottom
 				n = 0;
 			}
 			else {
@@ -98,7 +98,7 @@ int selectCommand(std::string _text, std::string options[], int _arrSize) {
 	}
 
 	//deallocate array
-	for (int i = 0; i < arrSize; i++)
+	for (int i = 0; i < _arrSize; i++)
 		delete[] menu[i];
 	delete[] menu;
 
