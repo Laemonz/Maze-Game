@@ -154,7 +154,7 @@ void Player::solveMaze(Maze* maze, int _row, int _col) {
 		direction[0] = UP;
 		direction[1] = RIGHT;
 		direction[2] = DOWN;
-		direction[3] = RIGHT;
+		direction[3] = LEFT;
 	}
 	else if (getyPos() > _row && getxPos() > _col) { //target is up and left of start
 		direction[0] = UP;
@@ -162,8 +162,8 @@ void Player::solveMaze(Maze* maze, int _row, int _col) {
 		direction[2] = DOWN;
 		direction[3] = RIGHT;
 	}
-	else {
-
+	else { //this shouldn't really be possible
+		assert(false);
 	}
 
 	//set start to visited
@@ -173,7 +173,7 @@ void Player::solveMaze(Maze* maze, int _row, int _col) {
 	while (!exit) {
 		success = false;
 		i = 0;
-		while (!success) {
+		while (!success && i<4) {	//run while valid move not yet found AND there are still valid moves
 			switch (direction[i]) {
 			case UP: //up
 				i++;
@@ -216,24 +216,37 @@ void Player::solveMaze(Maze* maze, int _row, int _col) {
 					setxPos(getxPos() + 1);
 					success = true;
 					currentMove = RIGHT;
-
 				}
 				break;
 
-			default:
+			default:	//this shouldn't be possible
 				std::cout << "Moving Stuck!" << std::endl;
+
+				if (validMove(getyPos(), getxPos(), UP, maze)) {
+					std::cout << "UP VALID!" << std::endl;
+					assert(false);
+				}
+				else if (validMove(getyPos(), getxPos(), DOWN, maze)) {
+					std::cout << "DOWN VALID!" << std::endl;
+					assert(false);
+				}
+				else if (validMove(getyPos(), getxPos(), LEFT, maze)) {
+					std::cout << "LEFT VALID!" << std::endl;
+					assert(false);
+				}
+				else if (validMove(getyPos(), getxPos(), RIGHT, maze)) {
+					std::cout << "RIGHT VALID!" << std::endl;
+					assert(false);
+				}
+					
 				assert(false);
 				break;
 
-			}//end switch
-			if (success == false && i == 4) { //no available moves
-				break; //exit while loop
 			}
-		}//end while
+		}
 		maze->sleep(50);
 
-		if (success) {
-			//determine the backtrack move
+		if (success) {	//successfully found a valid move, now determine the backtrack move
 			switch (currentMove) {
 			case UP:
 				currentMove = DOWN;
@@ -248,11 +261,12 @@ void Player::solveMaze(Maze* maze, int _row, int _col) {
 				currentMove = LEFT;
 				break;
 			default:
+				assert(false);
 				break;
 			}
 			backtrack.push(currentMove);
 		}
-		else {   //perform backtrack
+		else {   //no valid moves found, perform backtrack
 			if (backtrack.peek() == nullptr) { //this shouldn't really ever happen
 				system("CLS");
 				maze->printMaze();
