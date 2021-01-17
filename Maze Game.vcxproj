@@ -107,7 +107,6 @@
     <ClCompile Include="maze.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Spawn.cpp" />
     <ClCompile Include="Stack.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -119,7 +118,6 @@
     <ClInclude Include="maze.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="Spawn.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
