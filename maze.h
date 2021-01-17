@@ -54,7 +54,6 @@ public:
 	void updateGridContents(int, int, char);//Set the contents of a grid element and update the screen to show it
 	char checkGridContents(int, int, int);  //Check the contents or a grid given a coordinate and a direction
 	void generateMaze();					//Generate the maze
-	void buildMaze(int, int);				//Recusive function used in generation
 	void printMaze();						//Print the maze
 	void shuffleArray(int[]);				//Shuffle the moves (up, down, left, right)
 	void resetVisited(bool);				//reset visited for all non WALL cells
@@ -63,6 +62,8 @@ public:
 	void moveIcon(int, int, int, char, char);//Moves an icon in a direction
 
 private:
+	void buildMaze(int, int);				//Recusive function used in generation
+
 	Cell grid[rows][cols];	//maze to be generated
 	int xStart;				//col number of start point
 	int yStart;				//row number of start point
